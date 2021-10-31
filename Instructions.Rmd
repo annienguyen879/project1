@@ -99,7 +99,7 @@ Prerequisite: Finding appropriate data from at least two sources per the instruc
 #### 1. Tidying: Rearranging Wide/Long (10 pts)
 
 - Tidy the datasets (using the `tidyr` functions `pivot_longer`/`gather` and/or `pivot_wider`/`spread`) 
-- If you data sets are already tidy, be sure to use those functions somewhere else in your project (e.g., for rearranging summary statistics)
+- If your data sets are already tidy, be sure to use those functions somewhere else in your project (e.g., for rearranging summary statistics)
 - Document the process (describe in words what was done, no more than a paragraph)
     
 #### 2. Joining/Merging (20 pts)
@@ -117,7 +117,7 @@ Prerequisite: Finding appropriate data from at least two sources per the instruc
     
 - Discuss the size of the joined dataset and how it relates to the size of the original datasets
 
-- In the joined dataset, note how many observations/rows were dropped, and any potential problems with this
+- In the joined dataset, note how many observations/rows were dropped, and any potential problems with this.
 
 
 #### 3. Wrangling (46 pts)

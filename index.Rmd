@@ -19,44 +19,71 @@ tidy=TRUE, tidy.opts=list(width.cutoff=60), R.options=list(max.print=100))
 
 ## Data Wrangling, Exploration, Visualization
 
-### Name and EID here
+### Annie Nguyen (ahn539)
 
 #### Introduction 
 
-Paragraph or two introducing your datasets and variables, why they are interesting to you, etc.
+The women's rights movement has made great strides since the late 19th century. Literacy rates for girls have continued to rise, and the world is  beginning to witness women assume higher positions of power. For many years, women's representation in government has been sparse, but because of better access to education, today there is stronger female representation in Congress and in Parliaments across the globe. 
+
+This project analyzes the change in literacy rates for girls by country and examines the progress of women's representation in government. The `years` data set contains the mean number of years women (aged 15 to 44) were in school; the `ratio` data set contains the percent ratio of girls to boys in primary and secondary education; the `parliament` data set denotes the percentage of women in parliamentary positions. Each observation is recorded by country and year.
 
 ```{R}
-# read your datasets in here, e.g., with read_csv()
-
+library(tidyverse)
+years <- read_csv("mean_years_in_school.csv")
+ratio <- read_csv("ratio_girls_to_boys_in_school_perc.csv")
+parliament <- read_csv("wn_bothhouses_c.csv")
 ```
 
 #### Tidying: Reshaping
 
-If your datasets are tidy already, demonstrate that you can reshape data with pivot wider/longer here (e.g., untidy and then retidy). Alternatively, it may be easier to wait until the wrangling section so you can reshape your summary statistics. Note here if you are going to do this.
+The data sets were tidied using the `pivot_longer` function. The data for years were pivoted, and the values column was renamed to their respective variable name.
 
 ```{R}
-# your tidying code (if applicable; can also wait until wrangling section)
+years %>% pivot_longer(-1, names_to='year', values_to='mean_yrs') ->years
+ratio %>% pivot_longer(-1, names_to='year', values_to='ratio') -> ratio
+parliament %>% pivot_longer(-1, names_to='year', values_to='perc_parliament') -> parliament
 ```
 
     
 #### Joining/Merging
 
 ```{R}
-# your joining code
+years %>% summarise(countries=n_distinct(country), years=n_distinct(year))
+ratio%>% summarise(countries=n_distinct(country), years=n_distinct(year))
+parliament %>% summarise(countries=n_distinct(country), years=n_distinct(year))
+```
+Before joining, the `years` data set has 7000 observations, `ratio` has 10,200 observations, and the `parliament` data set has 14,668 observations. In the `years` data set, there are 175 distinct countries, 200 countries in the `ratio` set, and 193 countries in the `parliament` set. 
 
-# your joining code
+```{R}
+setdiff(years$country,ratio$country)
+setdiff(ratio$country,years$country)
+
+setdiff(years$country,parliament$country)
+setdiff(parliament$country,years$country)
+
+setdiff(ratio$country,parliament$country)
+setdiff(parliament$country,ratio$country)
+```
+Using the `setdiff` function one can identify which countries from the first set is not in the second set. The listed countries above represent countries from the first data set that were excluded from the second. 
+
+```{R}
+inner_join(years,ratio) %>% inner_join(parliament) %>% summarise(n_distinct(country))
+```
+Across the three data sets, they share 170 countries in common.
+
+```{R}
+full_join(years,ratio) %>% full_join(parliament)->join
+
+join %>% filter_at(vars(mean_yrs,ratio,perc_parliament),any_vars(!is.na(.))) -> joined_data
+glimpse(joined_data)
 ```
 
-Discussions of joining here. Feel encouraged to break up into more than once code chunk and discuss each in turn.
+The three data sets are joined by country and year using the full_join function in order to retain as many relevant data points as possible. However, rows where there are no data available for all three variables are filtered out. After filtering the data, 3,562 observations were dropped.
 
 ####  Wrangling
 
 ```{R}
-# your wrangling code
-
-# your wrangling code
-
-# your wrangling code
+joined_data %>% select(-year) %>% group_by(country) %>% summarise_all(function(x) mean(x,na.rm = T)) %>% arrange(-perc_parliament)
 ```
 
 Your discussion of wrangling section here. Feel encouraged to break up into more than once code chunk and discuss each in turn.
