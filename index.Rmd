@@ -107,26 +107,30 @@ Disparity was calculated by finding the absolute difference in magnitude between
 #### Visualizing
 
 ```{R}
-
+joined_data %>% filter(year>2009) %>% select(-year,-mean_yrs) %>% group_by(country) %>% summarise_all(function(x) mean(x,na.rm = T)) %>% mutate(disparity=abs(ratio-1)) %>% arrange(-disparity) -> joined_disparity
+joined_disparity %>% filter(!is.na(disparity)) %>% tail
+joined_disparity %>% head
+joined_data %>% filter(country==c('Angola','Afghanistan','United States','South Africa','Oman'))  %>% ggplot(aes(x=year,y=perc_parliament,color=country,group=country)) +geom_point()+ geom_line()+theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(breaks=c(1950,1960,1970,1980,1990,2000,2010,2019)) +labs(title = 'Year vs. % women in parliament') +xlab('Year') +ylab('% women in parliament')
 ```
 
-Your discussion of plot 1
+In the plot above, the two countries with the highest disparity in education for males and females (Afghanistan and Angola) were plotted with two of the countries with some of the lowest disparities (South Africa and Oman). The United States was included as reference. The United States had the highest female representation in legislature before 1975, and countries like South Africa and Afghanistan have far surpassed the U.S. after the turn of the century.
 
 ```{R}
-# your plot 2
+joined_data %>% filter(!is.na(mean_yrs),!is.na(ratio)) %>% group_by(country) %>% summarise(yrs_in_school=mean(mean_yrs), avg_ratio=mean(ratio)) %>% ggplot(aes(x=yrs_in_school,y=avg_ratio)) + geom_point() +geom_smooth(method='loess')+labs(title = 'Years in School vs. Ratio of Girls to Boys in School') +xlab('Years in School') +ylab('ratio of girls to boys')
 ```
 
-Your discussion of plot 2
+The plot above represents the relationship between 'gender parity' and the number of years girls spend in school. Each point of the graph represents a single country. As the ratio reaches 1, females are more likely to remain in school for longer.
 
 ```{R}
-# your plot 3
+joined_disparity %>% filter(!is.na(perc_parliament),!is.na(disparity)) %>% group_by(country) %>% summarise(avg_perc=mean(perc_parliament), avg_disparity=mean(disparity)) %>% ggplot(aes(x=avg_disparity,y=avg_perc)) + geom_point() +geom_smooth(method=lm)+scale_y_continuous(breaks = c(0,10,20,30,40,50))+labs(title = 'Gender Disparity in Education vs. Female Representation in Parliament') +xlab('disparity') +ylab('% of women in parliament')
 ```
 
-Your discussion of plot 3
+Using the disparity values delineated in the previous section, disparity is plotted against the average percentage of women in parliament. Based on the regression line plotted above, there is no significant correlation between gender parity in education and female representation in legislature. This suggests that increased access to education does not necessarily increase women's representation in government. 
+
 
 #### Concluding Remarks
 
-If any!
+From the data, we can see that as countries are closer to gender parity for education, women are more likely to spend more time in school. However, there is no significant indicator that gender parity in education correlates with a higher percentage of women in legislature. Access to equitable education may help women attain governmental positions but perhaps more needs to be done in other (cultural, social, and political) spheres to lead to equal representation in government.
 
 
 
