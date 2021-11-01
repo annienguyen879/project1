@@ -29,6 +29,7 @@ This project analyzes the change in literacy rates for girls by country and exam
 
 ```{R}
 library(tidyverse)
+library(gt)
 years <- read_csv("mean_years_in_school.csv")
 ratio <- read_csv("ratio_girls_to_boys_in_school_perc.csv")
 parliament <- read_csv("wn_bothhouses_c.csv")
@@ -83,16 +84,30 @@ The three data sets are joined by country and year using the full_join function 
 ####  Wrangling
 
 ```{R}
-joined_data %>% select(-year) %>% group_by(country) %>% summarise_all(function(x) mean(x,na.rm = T)) %>% arrange(-perc_parliament)
+joined_data %>% mutate(country=str_replace_all(country,'[- ]','')) %>% select(-year) %>% group_by(country) %>% summarise_all(function(x) mean(x,na.rm = T)) %>% arrange(-perc_parliament)
 ```
 
-Your discussion of wrangling section here. Feel encouraged to break up into more than once code chunk and discuss each in turn.
+Grouping the data by countries, each column averages the available data points to yield the overall average for 'mean years in school,' 'ratio of girls to boys in school,' and the 'percent of women in parliamentary position,' respectively. The data were then re-arrange to show the countries with the highest percentage of women in parliament in descending order. Outputs of `NaN` indicates that no data was available for that particular country.
 
+```{R}
+joined_data %>% filter(year>2009) %>% select(country,perc_parliament) %>% group_by(country) %>% na.omit %>% summarise(avg_perc=mean(perc_parliament),sd=sd(perc_parliament), var=var(perc_parliament), count=n(),min=min(perc_parliament),max=max(perc_parliament)) %>% arrange(-avg_perc) 
+```
+Looking at the available data points for 'percentage of women in parliament' after 2009, the mean, standard deviation, variance, count (number of available data points), min, and max values are calculated for each country, respectively, and then arranged in descending order from the greatest average percent of women in parliament. Between 2000 and 2019, Rwanda, Sweden, and Cuba have the highest female representation in parliament compared to the United States, which is ranked 85th and has an average of 20.58%.
+
+According to UNICEF, countries that have reached "gender parity" (or provides equal access to education for both boys and girls) have a ratio between 0.97 and 1.03. Examining only the data from the past decade (from 2010-2019), the following countries still have the greatest disparity in education access between genders:
+
+```{R}
+joined_data %>% filter(year>2009) %>% select(-year,-mean_yrs) %>% group_by(country) %>% summarise_all(function(x) mean(x,na.rm = T)) %>% filter(ratio<0.97 | ratio>1.03) %>% mutate(disparity=abs(ratio-1)) %>% arrange(-disparity) %>% head %>% gt %>% 
+  tab_header(title=md("**Disparity in Access to Education**"),
+             subtitle=md("Quantifying disparity in education and comparing to % of women in parliament")) %>%
+  tab_spanner(label="Variables", columns=c('ratio','perc_parliament','disparity'))
+```
+Disparity was calculated by finding the absolute difference in magnitude between the value of the ratio and 1. Angola, Afghanistan and South Sudan have the greatest disparity in access to education between males and females. It is interesting to note that although disparity in these three countries are the greatest, average female representation in parliament is over 25% in all three countries.
 
 #### Visualizing
 
 ```{R}
-# your plot 1
+
 ```
 
 Your discussion of plot 1
