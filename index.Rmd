@@ -46,7 +46,7 @@ ratio %>% pivot_longer(-1, names_to='year', values_to='ratio') -> ratio
 glimpse(ratio)
 parliament %>% pivot_longer(-1, names_to='year', values_to='perc_parliament') -> parliament
 glimpse(parliament)
-parliament %>% pivot_wider(names_from = 'country', values_from = 'perc_parliament') -> parliament_wider
+parliament %>% pivot_wider(names_from = 'year', values_from = 'perc_parliament') -> parliament_wider
 head(parliament_wider)
 ```
 

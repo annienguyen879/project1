@@ -1570,43 +1570,32 @@ glimpse(parliament)</code></pre>
 ## $ country         &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghani…
 ## $ year            &lt;chr&gt; &quot;1944&quot;, &quot;1945&quot;, &quot;1946&quot;, &quot;1947&quot;, &quot;1948&quot;, &quot;1949&quot;, &quot;1950…
 ## $ perc_parliament &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
-<pre class="r"><code>parliament_wider &lt;- parliament %&gt;% pivot_wider(names_from = &quot;country&quot;, 
+<pre class="r"><code>parliament_wider &lt;- parliament %&gt;% pivot_wider(names_from = &quot;year&quot;, 
     values_from = &quot;perc_parliament&quot;)
 head(parliament_wider)</code></pre>
-<pre><code>## # A tibble: 6 x 194
-##   year  Afghanistan Angola Albania Andorra `United Arab Em… Argentina Armenia
-##   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;            &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-## 1 1944           NA     NA    3.66      NA               NA     NA         NA
-## 2 1945           NA     NA    6.46      NA               NA      0         NA
-## 3 1946           NA     NA    8.81      NA               NA      0         NA
-## 4 1947           NA     NA   10.8       NA               NA      0         NA
-## 5 1948           NA     NA   12.5       NA               NA      5.99      NA
-## 6 1949           NA     NA   14.1       NA               NA     11.4       NA
-## # … with 186 more variables: `Antigua and Barbuda` &lt;dbl&gt;, Australia &lt;dbl&gt;,
-## #   Austria &lt;dbl&gt;, Azerbaijan &lt;dbl&gt;, Burundi &lt;dbl&gt;, Belgium &lt;dbl&gt;, Benin &lt;dbl&gt;,
-## #   `Burkina Faso` &lt;dbl&gt;, Bangladesh &lt;dbl&gt;, Bulgaria &lt;dbl&gt;, Bahrain &lt;dbl&gt;,
-## #   Bahamas &lt;dbl&gt;, `Bosnia and Herzegovina` &lt;dbl&gt;, Belarus &lt;dbl&gt;, Belize &lt;dbl&gt;,
-## #   Bolivia &lt;dbl&gt;, Brazil &lt;dbl&gt;, Barbados &lt;dbl&gt;, Brunei &lt;dbl&gt;, Bhutan &lt;dbl&gt;,
-## #   Botswana &lt;dbl&gt;, `Central African Republic` &lt;dbl&gt;, Canada &lt;dbl&gt;,
-## #   Switzerland &lt;dbl&gt;, Chile &lt;dbl&gt;, China &lt;dbl&gt;, `Cote d&#39;Ivoire` &lt;dbl&gt;,
-## #   Cameroon &lt;dbl&gt;, `Congo, Dem. Rep.` &lt;dbl&gt;, `Congo, Rep.` &lt;dbl&gt;,
-## #   Colombia &lt;dbl&gt;, Comoros &lt;dbl&gt;, `Cape Verde` &lt;dbl&gt;, `Costa Rica` &lt;dbl&gt;,
-## #   Cuba &lt;dbl&gt;, Cyprus &lt;dbl&gt;, `Czech Republic` &lt;dbl&gt;, Germany &lt;dbl&gt;,
-## #   Djibouti &lt;dbl&gt;, Dominica &lt;dbl&gt;, Denmark &lt;dbl&gt;, `Dominican Republic` &lt;dbl&gt;,
-## #   Algeria &lt;dbl&gt;, Ecuador &lt;dbl&gt;, Egypt &lt;dbl&gt;, Eritrea &lt;dbl&gt;, Spain &lt;dbl&gt;,
-## #   Estonia &lt;dbl&gt;, Ethiopia &lt;dbl&gt;, Finland &lt;dbl&gt;, Fiji &lt;dbl&gt;, France &lt;dbl&gt;,
-## #   `Micronesia, Fed. Sts.` &lt;dbl&gt;, Gabon &lt;dbl&gt;, `United Kingdom` &lt;dbl&gt;,
-## #   Georgia &lt;dbl&gt;, Ghana &lt;dbl&gt;, Guinea &lt;dbl&gt;, Gambia &lt;dbl&gt;,
-## #   `Guinea-Bissau` &lt;dbl&gt;, `Equatorial Guinea` &lt;dbl&gt;, Greece &lt;dbl&gt;,
-## #   Grenada &lt;dbl&gt;, Guatemala &lt;dbl&gt;, Guyana &lt;dbl&gt;, Honduras &lt;dbl&gt;,
-## #   Croatia &lt;dbl&gt;, Haiti &lt;dbl&gt;, Hungary &lt;dbl&gt;, Indonesia &lt;dbl&gt;, India &lt;dbl&gt;,
-## #   Ireland &lt;dbl&gt;, Iran &lt;dbl&gt;, Iraq &lt;dbl&gt;, Iceland &lt;dbl&gt;, Israel &lt;dbl&gt;,
-## #   Italy &lt;dbl&gt;, Jamaica &lt;dbl&gt;, Jordan &lt;dbl&gt;, Japan &lt;dbl&gt;, Kazakhstan &lt;dbl&gt;,
-## #   Kenya &lt;dbl&gt;, `Kyrgyz Republic` &lt;dbl&gt;, Cambodia &lt;dbl&gt;, Kiribati &lt;dbl&gt;, `St.
-## #   Kitts and Nevis` &lt;dbl&gt;, `South Korea` &lt;dbl&gt;, Kuwait &lt;dbl&gt;, Lao &lt;dbl&gt;,
-## #   Lebanon &lt;dbl&gt;, Liberia &lt;dbl&gt;, Libya &lt;dbl&gt;, `St. Lucia` &lt;dbl&gt;,
-## #   Liechtenstein &lt;dbl&gt;, `Sri Lanka` &lt;dbl&gt;, Lesotho &lt;dbl&gt;, Lithuania &lt;dbl&gt;,
-## #   Luxembourg &lt;dbl&gt;, Latvia &lt;dbl&gt;, Morocco &lt;dbl&gt;, …</code></pre>
+<pre><code>## # A tibble: 6 x 77
+##   country `1944` `1945` `1946` `1947` `1948` `1949` `1950` `1951` `1952` `1953`
+##   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Afghan…  NA     NA     NA      NA    NA      NA     NA     NA     NA     NA  
+## 2 Angola   NA     NA     NA      NA    NA      NA     NA     NA     NA     NA  
+## 3 Albania   3.66   6.46   8.81   10.8  12.5    14.1   13.5   12.9   12.4   11.9
+## 4 Andorra  NA     NA     NA      NA    NA      NA     NA     NA     NA     NA  
+## 5 United…  NA     NA     NA      NA    NA      NA     NA     NA     NA     NA  
+## 6 Argent…  NA      0      0       0     5.99   11.4   16.2   17.5   18.8   20.1
+## # … with 66 more variables: `1954` &lt;dbl&gt;, `1955` &lt;dbl&gt;, `1956` &lt;dbl&gt;,
+## #   `1957` &lt;dbl&gt;, `1958` &lt;dbl&gt;, `1959` &lt;dbl&gt;, `1960` &lt;dbl&gt;, `1961` &lt;dbl&gt;,
+## #   `1962` &lt;dbl&gt;, `1963` &lt;dbl&gt;, `1964` &lt;dbl&gt;, `1965` &lt;dbl&gt;, `1966` &lt;dbl&gt;,
+## #   `1967` &lt;dbl&gt;, `1968` &lt;dbl&gt;, `1969` &lt;dbl&gt;, `1970` &lt;dbl&gt;, `1971` &lt;dbl&gt;,
+## #   `1972` &lt;dbl&gt;, `1973` &lt;dbl&gt;, `1974` &lt;dbl&gt;, `1975` &lt;dbl&gt;, `1976` &lt;dbl&gt;,
+## #   `1977` &lt;dbl&gt;, `1978` &lt;dbl&gt;, `1979` &lt;dbl&gt;, `1980` &lt;dbl&gt;, `1981` &lt;dbl&gt;,
+## #   `1982` &lt;dbl&gt;, `1983` &lt;dbl&gt;, `1984` &lt;dbl&gt;, `1985` &lt;dbl&gt;, `1986` &lt;dbl&gt;,
+## #   `1987` &lt;dbl&gt;, `1988` &lt;dbl&gt;, `1989` &lt;dbl&gt;, `1990` &lt;dbl&gt;, `1991` &lt;dbl&gt;,
+## #   `1992` &lt;dbl&gt;, `1993` &lt;dbl&gt;, `1994` &lt;dbl&gt;, `1995` &lt;dbl&gt;, `1996` &lt;dbl&gt;,
+## #   `1997` &lt;dbl&gt;, `1998` &lt;dbl&gt;, `1999` &lt;dbl&gt;, `2000` &lt;dbl&gt;, `2001` &lt;dbl&gt;,
+## #   `2002` &lt;dbl&gt;, `2003` &lt;dbl&gt;, `2004` &lt;dbl&gt;, `2005` &lt;dbl&gt;, `2006` &lt;dbl&gt;,
+## #   `2007` &lt;dbl&gt;, `2008` &lt;dbl&gt;, `2009` &lt;dbl&gt;, `2010` &lt;dbl&gt;, `2011` &lt;dbl&gt;,
+## #   `2012` &lt;dbl&gt;, `2013` &lt;dbl&gt;, `2014` &lt;dbl&gt;, `2015` &lt;dbl&gt;, `2016` &lt;dbl&gt;,
+## #   `2017` &lt;dbl&gt;, `2018` &lt;dbl&gt;, `2019` &lt;dbl&gt;</code></pre>
 </div>
 <div id="joiningmerging" class="section level4">
 <h4>Joining/Merging</h4>
@@ -1742,7 +1731,7 @@ glimpse(joined_data)</code></pre>
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#vkmkjgahpu .gt_table {
+#xyxnujumxt .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1767,7 +1756,7 @@ glimpse(joined_data)</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#vkmkjgahpu .gt_heading {
+#xyxnujumxt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1779,7 +1768,7 @@ glimpse(joined_data)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vkmkjgahpu .gt_title {
+#xyxnujumxt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1789,7 +1778,7 @@ glimpse(joined_data)</code></pre>
   border-bottom-width: 0;
 }
 
-#vkmkjgahpu .gt_subtitle {
+#xyxnujumxt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1799,13 +1788,13 @@ glimpse(joined_data)</code></pre>
   border-top-width: 0;
 }
 
-#vkmkjgahpu .gt_bottom_border {
+#xyxnujumxt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vkmkjgahpu .gt_col_headings {
+#xyxnujumxt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1820,7 +1809,7 @@ glimpse(joined_data)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vkmkjgahpu .gt_col_heading {
+#xyxnujumxt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1840,7 +1829,7 @@ glimpse(joined_data)</code></pre>
   overflow-x: hidden;
 }
 
-#vkmkjgahpu .gt_column_spanner_outer {
+#xyxnujumxt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1852,15 +1841,15 @@ glimpse(joined_data)</code></pre>
   padding-right: 4px;
 }
 
-#vkmkjgahpu .gt_column_spanner_outer:first-child {
+#xyxnujumxt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vkmkjgahpu .gt_column_spanner_outer:last-child {
+#xyxnujumxt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vkmkjgahpu .gt_column_spanner {
+#xyxnujumxt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1872,7 +1861,7 @@ glimpse(joined_data)</code></pre>
   width: 100%;
 }
 
-#vkmkjgahpu .gt_group_heading {
+#xyxnujumxt .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1894,7 +1883,7 @@ glimpse(joined_data)</code></pre>
   vertical-align: middle;
 }
 
-#vkmkjgahpu .gt_empty_group_heading {
+#xyxnujumxt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1909,15 +1898,15 @@ glimpse(joined_data)</code></pre>
   vertical-align: middle;
 }
 
-#vkmkjgahpu .gt_from_md > :first-child {
+#xyxnujumxt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vkmkjgahpu .gt_from_md > :last-child {
+#xyxnujumxt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vkmkjgahpu .gt_row {
+#xyxnujumxt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1936,7 +1925,7 @@ glimpse(joined_data)</code></pre>
   overflow-x: hidden;
 }
 
-#vkmkjgahpu .gt_stub {
+#xyxnujumxt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1948,7 +1937,7 @@ glimpse(joined_data)</code></pre>
   padding-left: 12px;
 }
 
-#vkmkjgahpu .gt_summary_row {
+#xyxnujumxt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1958,7 +1947,7 @@ glimpse(joined_data)</code></pre>
   padding-right: 5px;
 }
 
-#vkmkjgahpu .gt_first_summary_row {
+#xyxnujumxt .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1968,7 +1957,7 @@ glimpse(joined_data)</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#vkmkjgahpu .gt_grand_summary_row {
+#xyxnujumxt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1978,7 +1967,7 @@ glimpse(joined_data)</code></pre>
   padding-right: 5px;
 }
 
-#vkmkjgahpu .gt_first_grand_summary_row {
+#xyxnujumxt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1988,11 +1977,11 @@ glimpse(joined_data)</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#vkmkjgahpu .gt_striped {
+#xyxnujumxt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vkmkjgahpu .gt_table_body {
+#xyxnujumxt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2001,7 +1990,7 @@ glimpse(joined_data)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vkmkjgahpu .gt_footnotes {
+#xyxnujumxt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2015,13 +2004,13 @@ glimpse(joined_data)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vkmkjgahpu .gt_footnote {
+#xyxnujumxt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#vkmkjgahpu .gt_sourcenotes {
+#xyxnujumxt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2035,46 +2024,46 @@ glimpse(joined_data)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vkmkjgahpu .gt_sourcenote {
+#xyxnujumxt .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#vkmkjgahpu .gt_left {
+#xyxnujumxt .gt_left {
   text-align: left;
 }
 
-#vkmkjgahpu .gt_center {
+#xyxnujumxt .gt_center {
   text-align: center;
 }
 
-#vkmkjgahpu .gt_right {
+#xyxnujumxt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vkmkjgahpu .gt_font_normal {
+#xyxnujumxt .gt_font_normal {
   font-weight: normal;
 }
 
-#vkmkjgahpu .gt_font_bold {
+#xyxnujumxt .gt_font_bold {
   font-weight: bold;
 }
 
-#vkmkjgahpu .gt_font_italic {
+#xyxnujumxt .gt_font_italic {
   font-style: italic;
 }
 
-#vkmkjgahpu .gt_super {
+#xyxnujumxt .gt_super {
   font-size: 65%;
 }
 
-#vkmkjgahpu .gt_footnote_marks {
+#xyxnujumxt .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="vkmkjgahpu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="xyxnujumxt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="5" class="gt_heading gt_title gt_font_normal" style><strong>Disparity in Access to Education</strong></th>
