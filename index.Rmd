@@ -41,8 +41,13 @@ The data sets were tidied using the `pivot_longer` function. The data for years 
 
 ```{R}
 years %>% pivot_longer(-1, names_to='year', values_to='mean_yrs') ->years
+glimpse(years)
 ratio %>% pivot_longer(-1, names_to='year', values_to='ratio') -> ratio
+glimpse(ratio)
 parliament %>% pivot_longer(-1, names_to='year', values_to='perc_parliament') -> parliament
+glimpse(parliament)
+parliament %>% pivot_wider(names_from = 'country', values_from = 'perc_parliament') -> parliament_wider
+glimpse(parliament_wider)
 ```
 
     
@@ -97,7 +102,7 @@ Looking at the available data points for 'percentage of women in parliament' aft
 According to UNICEF, countries that have reached "gender parity" (or provides equal access to education for both boys and girls) have a ratio between 0.97 and 1.03. Examining only the data from the past decade (from 2010-2019), the following countries still have the greatest disparity in education access between genders:
 
 ```{R}
-joined_data %>% filter(year>2009) %>% select(-year,-mean_yrs) %>% group_by(country) %>% summarise_all(function(x) mean(x,na.rm = T)) %>% filter(ratio<0.97 | ratio>1.03) %>% mutate(disparity=abs(ratio-1)) %>% arrange(-disparity) %>% head %>% gt %>% 
+joined_data %>% filter(year>2009) %>% select(-year,-mean_yrs) %>% group_by(country) %>% summarise_all(function(x) mean(x,na.rm = T))%>% mutate(disparity=abs(ratio-1), parity_achieved = if_else(ratio<0.97|ratio>1.03,'False','True')) %>% arrange(-disparity) %>% head %>% gt %>% 
   tab_header(title=md("**Disparity in Access to Education**"),
              subtitle=md("Quantifying disparity in education and comparing to % of women in parliament")) %>%
   tab_spanner(label="Variables", columns=c('ratio','perc_parliament','disparity'))
